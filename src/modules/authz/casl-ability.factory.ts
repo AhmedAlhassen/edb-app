@@ -2,7 +2,8 @@ import { Ability } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
 import { Permission } from "src/entities/permission.entity";
 import { User } from "src/entities/user.entity";
-import { AuthService } from "../auth/auth.service";
+
+import { AuthzService } from "./authz.service";
 
 export enum PermissionAction {
     ALL = "all",
@@ -23,12 +24,12 @@ export enum PermissionAction {
   }
   
   @Injectable()
-export class CaslAbilityFactory {
+  export class CaslAbilityFactory {
     
-    constructor(private authService : AuthService){}
+    constructor(private readonly authzService : AuthzService){}
     
     async createForUser(user: User): Promise<AppAbility> {
-        const dbPermissions: Permission[] = await this.authService.findAllPermissionsOfUser(user.username);
+        const dbPermissions: Permission[] = await this.authzService.findAllPermissionsOfUser(user.username);
         const caslPermissions: CaslPermission[] = dbPermissions.map(p => ({
             action: p.action,
             subject: p.subject.name,

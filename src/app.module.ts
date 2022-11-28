@@ -1,6 +1,5 @@
 import { Logger, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { EnvironmentConfigModule } from './config/environment-config/environment-config.module';
 import { LoggerModule } from './logger/logger.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -14,7 +13,7 @@ import { RepositoryModule } from './common/repository/repository.module';
 
 @Module({
   imports: [EnvironmentConfigModule, LoggerModule, AuthModule, AuthzModule, UserModule, BcryptModule, JwtModule, ExceptionsModule, RepositoryModule,],
-  controllers: [AppController],
-  providers: [AppService, Logger, AuthzService],
+
+  providers: [Logger],
 })
 export class AppModule {}
