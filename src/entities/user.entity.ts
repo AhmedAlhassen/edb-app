@@ -1,5 +1,12 @@
-import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "./role.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Role } from './role.entity';
 
 @Entity()
 export class User {
@@ -24,7 +31,7 @@ export class User {
 
   @Column('varchar', { nullable: true })
   hach_refresh_token: string;
-  
-  @ManyToOne(()=>Role, (role)=>role.users)
-  role:Role
+
+  @ManyToOne(() => Role, (role) => role.users)
+  role?: Role;
 }

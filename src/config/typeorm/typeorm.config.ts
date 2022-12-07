@@ -13,7 +13,7 @@ const config: ConnectionOptions = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   entities: [__dirname + './../../**/*.entity{.ts,.js}'],
-  synchronize: false,
+  synchronize: true,
   schema: process.env.DATABASE_SCHEMA,
   migrationsRun: true,
   migrationsTableName: 'migration_todo',

@@ -3,7 +3,9 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EnvironmentConfigModule } from '../environment-config/environment-config.module';
 import { EnvironmentConfigService } from '../environment-config/environment-config.service';
 
-export const getTypeOrmModuleOptions = (config: EnvironmentConfigService): TypeOrmModuleOptions =>
+export const getTypeOrmModuleOptions = (
+  config: EnvironmentConfigService,
+): TypeOrmModuleOptions =>
   ({
     type: 'postgres',
     host: config.getDatabaseHost(),
@@ -12,7 +14,7 @@ export const getTypeOrmModuleOptions = (config: EnvironmentConfigService): TypeO
     password: config.getDatabasePassword(),
     database: config.getDatabaseName(),
     entities: [__dirname + './../../**/*.entity{.ts,.js}'],
-    synchronize: false,
+    synchronize: true,
     schema: process.env.DATABASE_SCHEMA,
     migrationsRun: true,
     migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
