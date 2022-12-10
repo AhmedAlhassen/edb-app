@@ -3,11 +3,19 @@ import { ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from '../database.interface';
 import { JWTConfig } from '../jwt.interface';
 
-
 @Injectable()
 export class EnvironmentConfigService implements DatabaseConfig, JWTConfig {
   constructor(private configService: ConfigService) {}
-  
+
+  getNeelianApi(): string {
+    return this.configService.get<string>('NEELIAN_API');
+  }
+  getUsppApi(): string {
+    return this.configService.get<string>('USPP_API');
+  }
+  getHttpTimeOut(): number {
+    return this.configService.get<number>('HTTP_TIME_OUT');
+  }
   getJwtSecret(): string {
     return this.configService.get<string>('JWT_SECRET');
   }

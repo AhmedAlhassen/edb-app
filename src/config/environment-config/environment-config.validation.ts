@@ -1,5 +1,12 @@
 import { plainToClass } from 'class-transformer';
-import { IsBoolean, IsEnum, IsNumber, IsString, validateSync } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  isNumber,
+  IsNumber,
+  IsString,
+  validateSync,
+} from 'class-validator';
 
 enum Environment {
   Development = 'development',
@@ -21,6 +28,14 @@ class EnvironmentVariables {
   @IsString()
   JWT_REFRESH_TOKEN_EXPIRATION_TIME: string;
 
+  @IsString()
+  NEELIAN_API: string;
+
+  @IsString()
+  USPP_API: string;
+
+  @IsNumber()
+  HTTP_TIME_OUT: number;
 
   @IsString()
   DATABASE_HOST: string;
@@ -42,7 +57,9 @@ export function validate(config: Record<string, unknown>) {
   const validatedConfig = plainToClass(EnvironmentVariables, config, {
     enableImplicitConversion: true,
   });
-  const errors = validateSync(validatedConfig, { skipMissingProperties: false });
+  const errors = validateSync(validatedConfig, {
+    skipMissingProperties: false,
+  });
 
   if (errors.length > 0) {
     throw new Error(errors.toString());

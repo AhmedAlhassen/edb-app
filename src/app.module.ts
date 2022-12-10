@@ -16,6 +16,11 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './common/strategies/local.strategy';
 import { JwtStrategy } from './common/strategies/jwt.strategy';
 import { JwtRefreshTokenStrategy } from './common/strategies/jwtRefresh.strategy';
+import { NeelianModule } from './modules/neelian/neelian.module';
+import { ConfigModule } from '@nestjs/config';
+import { UsppModule } from './modules/uspp/uspp.module';
+import { TransModule } from './modules/trans/trans.module';
+import { BillerModule } from './modules/biller/biller.module';
 
 @Module({
   imports: [
@@ -23,7 +28,9 @@ import { JwtRefreshTokenStrategy } from './common/strategies/jwtRefresh.strategy
     EnvironmentConfigModule,
     LoggerModule,
     AuthModule,
-
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     UserModule,
     BcryptModule,
     JwtModule,
@@ -32,6 +39,10 @@ import { JwtRefreshTokenStrategy } from './common/strategies/jwtRefresh.strategy
     SubjectModule,
     PermissionModule,
     RoleModule,
+    NeelianModule,
+    UsppModule,
+    TransModule,
+    BillerModule,
   ],
 
   providers: [Logger, LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy],
